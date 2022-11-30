@@ -1,31 +1,31 @@
-# Coloque aqui o nome do tutorial de vocês
+# Rust Driver
 
-- **Alunes:** .../ ... /...
+- **Alunes:** Matheus Kwon / Paulo Souza Chade
 - **Curso:** Engenharia da Computação
-- **Semestre:** 9
-- **Contato:** corsiferrao@gmail.com
-- **Ano:** 2020
+- **Semestre:** 6
+- **Contato:** kwonmat@outlook.com.br / paulosc4@al.insper.edu.br / corsiferrao@gmail.com
+- **Ano:** 2022
+
+!!! info 
+    [Repositório original](https://github.com/pauloschade/linux-rust)
 
 ## Começando
 
 Para seguir esse tutorial é necessário:
 
-- **Hardware:** DE10-Standard e acessórios
-- **Softwares:** Quartus 18.01
-- **Documentos:** [DE10-Standard_User_manual.pdf](https://github.com/Insper/DE10-Standard-v.1.3.0-SystemCD/tree/master/Manual)
+- **Hardware:** Ubuntu 22.04 (Jammy Jellyfish)
+- **Softwares:** -
+- **Repositórios:** [JackOS](https://github.com/jackos/linux) e [Linux](https://github.com/Rust-for-Linux/linux)
 
 ## Motivação
 
-Expliquem porque quiseram fazer esse tutorial.
+Para a matéria de SoC - Linux Embarcado, nós observamos uma oportunidade de realizar um projeto final no qual poderíamos aprofundar no escopo de módulos e drivers Linux. Visando aprender mais, optamos por criar drivers na linguagem Rust. Portanto, este tutorial teve como principal motivação o aprendizado em Rust.
 
 ----------------------------------------------
 
-!!! info 
-    Essas duas partes são obrigatórias no tutorial:
-    
-    - Nome de vocês
-    - Começando
-    - Motivação
+## Realizando build da máquina virtual Linux
+
+
 
 ## Recursos Markdown
 

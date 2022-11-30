@@ -3,7 +3,7 @@
 - **Alunes:** Matheus Kwon / Paulo Souza Chade
 - **Curso:** Engenharia da Computação
 - **Semestre:** 6
-- **Contato:** kwonmat@outlook.com.br / paulosc4@al.insper.edu.br / corsiferrao@gmail.com
+- **Contato:** kwonmat@outlook.com.br / paulosc4@al.insper.edu.br
 - **Ano:** 2022
 
 !!! info 
@@ -13,9 +13,9 @@
 
 Para seguir esse tutorial é necessário:
 
-- **Hardware:** Ubuntu 22.04 (Jammy Jellyfish)
-- **Softwares:** -
-- **Repositórios:** [JackOS](https://github.com/jackos/linux) e [Linux](https://github.com/Rust-for-Linux/linux)
+- **Hardware:** -
+- **Softwares:** C-Lang versão >= 11, GLIBC 2.32 (Uma solução fácil para utilizar esta versão do GLIBC é utilizar o [multipass](https://multipass.run/))
+- **Repositórios:** [Base Linux-Rust mínima](https://github.com/pauloschade/linux-rust), [JackOS](https://github.com/jackos/linux) e [Linux](https://github.com/Rust-for-Linux/linux)
 
 ## Motivação
 
@@ -23,9 +23,90 @@ Para a matéria de SoC - Linux Embarcado, nós observamos uma oportunidade de re
 
 ----------------------------------------------
 
+## Repositório
+
+O repositório utilizado é um adaptado por nós para este tutorial:
+
+```
+https://github.com/pauloschade/linux-rust
+```
+
+Não é necessário cloná-lo agora, pois já iremos fazer isso em instantes. Ele é um derivado distante do repositório do [Linux original](https://github.com/torvalds/linux), com modificações para que suporte módulos em Rust e mais simplificado. Ele não possui algumas *features* comuns, como *make*, *gcc*, *vim*, *ssh* etc., mas possui essenciais para o funcionamento do *driver*.
+
+## Dependências utilizadas
+
+Para instalar as dependências que serão utilizadas na aplicação, você deverá executar os comandos abaixo no terminal:
+
+Instalação de pacotes necessários:
+```sh
+sudo apt update
+sudo apt install -y bc bison curl clang fish flex git gcc libclang-dev libelf-dev lld llvm-dev libncurses-dev make neovim qemu-system-x86
+```
+
+Exportar essas variáveis:
+```sh
+export PATH="/root/.cargo/bin:${PATH}"
+export MAKEFLAGS="-j16"
+export LLVM="1"
+```
+
+Agora, inicie uma nova aba ou janela do terminal.
+
+Instalação de rustup:
+```sh
+curl https://sh.rustup.rs -sSf | bash -s -- -y
+```
+
+Instalação da versão necessária do bindgen:
+```sh
+git clone https://github.com/rust-lang/rust-bindgen -b v0.56.0 --depth=1
+cargo install --path rust-bindgen
+```
+
+Clone do repositório de Base mínima de Linux-Rust:
+```sh
+git clone https://github.com/pauloschade/linux-rust --depth=1
+cd linux
+```
+
+Configurando a versão de rustc:
+```sh
+rustup override set $(scripts/min-tool-version.sh rustc)
+rustup component add rust-src
+```
+
+Build inicial para testar se tudo até agora está certo:
+```sh
+make allnoconfig qemu-busybox-min.config rust.config
+make
+```
+
 ## Realizando build da máquina virtual Linux
 
+Para testar o funcionamento da máquina virtual, rode:
+```
+make rustvm
+```
 
+Se tudo ocorrer bem, você verá o seguinte print no log de boot:
+
+```
+--------------------------------------
+--------------------------------------
+--------------------------------------
+Hello world from rust!
+--------------------------------------
+--------------------------------------
+--------------------------------------
+```
+
+Isso acontecerá, pois há um módulo criado que se chama "HelloWorld", que executa a função de realizar display dessas linhas. Ele está definido no arquivo "samples/rust/rust_hello.rs" do repositório.
+
+## 
+
+Iniciando a criação do *driver* em Rust, crie um arquivo no diretório "samples/rust/" com o nome "rust_ebbchar.rs".
+
+Para que a inicialização do Linux virtual funcione, baixe [este](https://github.com/matkwon/RustDriver/raw/master/files/.config) arquivo no diretório raiz do repositório clonado.
 
 ## Recursos Markdown
 
